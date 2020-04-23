@@ -23,6 +23,7 @@ $(document).ready(function () {
         url: 'server.php',
         method: 'GET',
         success: function (datiInArrivo) {
+            var mesi = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
             var grafico = datiInArrivo;
 
             var valoriDiFatturato = grafico.fatturato.data; //è un array per il primo dei due grafici
@@ -55,7 +56,7 @@ $(document).ready(function () {
             var graficoLinea = new Chart(ctx, {
                 type: tipoDiGrafico2,
                 data: {
-                    labels: null,
+                    labels: mesi,
                     datasets: [{
                         label: "Grafico numero 2",
                         backgroundColor: "rgb(153, 102, 255)",
