@@ -13,10 +13,14 @@
   <body>
     <div class="container">
       <canvas id="grafico1"></canvas>
+      <!-- in css non funziona, quindi per separare i grafici mi arrangio con br-->
+      <br /><br /><br /><br /><br /><br /><br />
+      <canvas id="grafico2"></canvas>
+      <br /><br /><br /><br /><br /><br /><br />
+      <canvas id="grafico3"></canvas>
+      <br />
     </div>
   </body>
-
-  <!-- <script src="main.js"></script> -->
 
   <script>
     $(document).ready(function() {
@@ -36,11 +40,12 @@
                 datasets: [{
                     label: "Grafico numero 1",
                     backgroundColor: "rgb(118, 215, 196)",
-                    borderColor: "rgb(52, 152, 219)",
+                    borderColor: "rgb(0, 0, 102)",
                     data: valori
                 }],
             }
         });
     });
   </script>
+  <script src="main.js"></script>
 </html>
