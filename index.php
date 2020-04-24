@@ -24,151 +24,60 @@
   </body>
 
   <script>
-        $(document).ready(function() {
-            var mesi = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre",
-                "Ottobre", "Novembre", "Dicembre"
-            ];
+          $(document).ready(function() {
+              var mesi = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre",
+                  "Ottobre", "Novembre", "Dicembre"
+              ];
 
-            // var valori = [1000, 1322, 1123, 2301, 3288, 988, 502, 2300, 5332, 2300, 1233, 2322];
+              // var valori = [1000, 1322, 1123, 2301, 3288, 988, 502, 2300, 5332, 2300, 1233, 2322];
 
-            <?php include 'valori.php'; ?>
-            var valori = <?php echo json_encode($valori); ?> ;
+              // <?php include 'valori.php'; ?>
+              // var valori = <?php echo json_encode($valori); ?> ;
 
-            var ctx = $("#grafico1");
-            var chart = new Chart(ctx, {
-                type: "line",
-                data: {
-                    labels: mesi,
-                    datasets: [{
-                        label: "Grafico numero 1",
-                        backgroundColor: "rgb(118, 215, 196)",
-                        borderColor: "rgb(0, 0, 102)",
-                        data: valori
-                    }],
-                }
-            });
+              // var ctx = $("#grafico1");
+              // var chart = new Chart(ctx, {
+              //     type: "line",
+              //     data: {
+              //         labels: mesi,
+              //         datasets: [{
+              //             label: "Grafico numero 1",
+              //             backgroundColor: "rgb(118, 215, 196)",
+              //             borderColor: "rgb(0, 0, 102)",
+              //             data: valori
+              //         }],
+              //     }
+              //   });
 
-    <?php include 'data.php' ?>
+      <?php include 'data.php' ?>
+      <?php
+      $livello_accesso = $_GET["level"];
+      if($graphs["fatturato"]["access"] == $livello_accesso)
+        include 'grafico1.php' ?>
 
-    var mesi = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto",
-        "Settembre", "Ottobre", "Novembre", "Dicembre"
-    ];
+        <?php
+      $livello_accesso = $_GET["level"];
+      if($graphs["fatturato_by_agent"]["access"] == $livello_accesso) {
 
-    var valoriDiFatturato = <?php echo json_encode($graphs["fatturato"]["data"]); ?>;
-    var tipoDiGrafico2 = <?php echo '"'.$graphs["fatturato"]["type"].'"'; ?>;
+       include 'grafico1.php';
+       include 'grafico2.php';
+       }
+       ?>
 
-    //var livelloDiAccesso = <?php echo json_encode($graphs["fatturato"]["data"]); ?>;
+       <?php
+      $livello_accesso = $_GET["level"];
+      if($graphs["team_efficiency"]["access"] == $livello_accesso) {
 
-    var valoriDiFatturatoByAgent = <?php echo json_encode($graphs["fatturato_by_agent"]["data"]); ?>;
-    var tipoDiGrafico3 = <?php echo '"' . $graphs["fatturato_by_agent"]["type"] . '"'; ?>;
+       include 'grafico1.php';
+       include 'grafico2.php';
+       include 'grafico3.php';
+       }
+       ?>
 
 
-    var tipoDiGrafico4 = <?php echo '"' . $graphs["team_efficiency"]["type"] . '"'; ?>;
 
 
 
-    var ctx = $("#grafico2");
-    var graficoLinea = new Chart(ctx, {
-        type: tipoDiGrafico2,
-        data: {
-            labels: mesi,
-            datasets: [{
-                label: "Grafico numero 2",
-                backgroundColor: "rgb(153, 102, 255)",
-                borderColor: "rgb(0, 0, 102)",
-                data: valoriDiFatturato
-            }],
-        }
     });
-
-
-    <?php
-
-    $nomi = [];
-    $valori = [];
-
-    foreach ($graphs["fatturato_by_agent"]["data"] as $key => $value) {
-
-      array_push($nomi, $key);
-      array_push($valori, $value);
-
-    }
-
-    ?>
-
-
-
-    var arrayNomi = <?php echo json_encode($nomi); ?>;
-    //console.log(arrayNomi);
-
-    var arrayValori = <?php echo json_encode($valori); ?>;
-    //console.log(arrayValori);
-
-
-    var ctx = $("#grafico3");
-    var graficoTorta = new Chart(ctx, {
-        type: tipoDiGrafico3,
-        data: {
-            labels: arrayNomi,
-            datasets: [{
-                label: "Grafico numero 3",
-                backgroundColor: ["rgb(51, 204, 255)", "rgb(153, 102, 255)", "rgb(255, 102, 204)", "rgb(255, 153, 102)"],
-                borderColor: "rgb(0, 0, 102)",
-                data: arrayValori
-                    }],
-                }
-            });
-
-            <?php
-
-    $team = [];
-    $valoriDelTeam = [];
-
-    foreach ($graphs["team_efficiency"]["data"] as $key => $value) {
-
-      array_push($team, $key);
-      array_push($valoriDelTeam, $value);
-
-    }
-
-    ?>
-
-    var arrayTeam = <?php echo json_encode($team); ?>;
-    console.log(arrayTeam);
-
-    var arrayValoriDeiTeam = <?php echo json_encode($valoriDelTeam); ?>;
-    console.log(arrayValoriDeiTeam);
-
-    var ctx = $("#grafico4");
-    var graficoTorta = new Chart(ctx, {
-        type: tipoDiGrafico4,
-        data: {
-            labels: mesi,
-            datasets: [
-              {
-                label: arrayTeam[0],
-                backgroundColor: ["rgb(51, 204, 255)", "rgb(153, 102, 255)", "rgb(255, 102, 204)", "rgb(255, 153, 102)"],
-                borderColor: "rgb(0, 0, 102)",
-                data: arrayValoriDeiTeam[0]
-                    },
-              {
-                label: arrayTeam[1],
-                backgroundColor: ["rgb(51, 204, 255)", "rgb(153, 102, 255)", "rgb(255, 102, 204)", "rgb(255, 153, 102)"],
-                borderColor: "rgb(0, 0, 102)",
-                data: arrayValoriDeiTeam[1]
-                    },
-
-                    {
-                label: arrayTeam[2],
-                backgroundColor: ["rgb(51, 204, 255)", "rgb(153, 102, 255)", "rgb(255, 102, 204)", "rgb(255, 153, 102)"],
-                borderColor: "rgb(0, 0, 102)",
-                data: arrayValoriDeiTeam[2]
-                    },
-                  ],
-
-                }
-          });
-        });
   </script>
   //
   <!--<script src="main.js"></script>-->
